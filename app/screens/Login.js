@@ -5,12 +5,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import t from 'tcomb-form-native';
 import { Container } from '../components/Container';
-import { InputWithTextInput } from '../components/TextInput';
 import { LoginButton } from '../components/Button';
 import { login } from '../actions/user';
 import { User } from '../model/user';
 
-const Form = t.form.Form;
+const { Form: FormData } = t.form;
 
 class Login extends React.Component {
   static propTypes = {
@@ -18,15 +17,15 @@ class Login extends React.Component {
   };
 
   handleLoginPress = () => {
-    this.props.dispatch(login(JSON.stringify(this.refs.form.getValue())));
+    this.props.dispatch(login(JSON.stringify(this.form.getValue())));
   };
 
   render() {
     return (
       <Container>
         <StatusBar translucent={false} barStyle="light-content" />
-        <Form
-          ref='form'
+        <FormData
+          ref={(c) => { this.form = c; }}
           type={User}
         />
         <LoginButton text="Login" onPress={() => this.handleLoginPress()} />
