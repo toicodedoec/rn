@@ -1,5 +1,6 @@
 import React from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Navigator from './config/routes';
 import { Provider } from 'react-redux';
 import Login from './screens/Login';
 import store from './config/store';
@@ -15,6 +16,6 @@ EStyleSheet.build({
 
 export default () => (
   <Provider store={store} >
-    <Login />
+    <Navigator />
   </Provider>
 );
