@@ -3,6 +3,8 @@ import statusMessage from './status';
 import { Firebase, FirebaseRef } from '../lib/firebase';
 import memberService from '../services/member.services';
 import { Actions } from 'react-native-router-flux';
+import { AsyncStorage } from 'react-native';
+import memberDataParser from '../parser/member.data.parser';
 
 /**
   * Sign Up to Firebase
@@ -47,38 +49,11 @@ export function signUp(formData) {
 /**
   * Get this User's Details
   */
-function getUserData(dispatch) {
-  /*
-  const UID = (
-    FirebaseRef
-    && Firebase
-    && Firebase.auth()
-    && Firebase.auth().currentUser
-    && Firebase.auth().currentUser.uid
-  ) ? Firebase.auth().currentUser.uid : null;
-
-  if (!UID) return false;
-
-  const ref = FirebaseRef.child(`users/${UID}`);
-
-  return ref.on('value', (snapshot) => {
-    const userData = snapshot.val() || [];
-
-    return dispatch({
-      type: 'USER_DETAILS_UPDATE',
-      data: userData,
-    });
-  });
-  */
-  const userData = {
-    firstName: 'Doan',
-    lastName: 'Nguyen',
-    signedUp: 'true',
-    role: 'Admin'
-  };
+async function getUserData(dispatch, userId) {
+  let memberDto = await memberService.getUserData(userId);
   return dispatch({
     type: 'USER_DETAILS_UPDATE',
-    data: userData,
+    data: memberDto
   });
 }
 
@@ -100,24 +75,20 @@ export function login(formData) {
 
     await statusMessage(dispatch, 'loading', false);
     // Call API /appUsers/login
-    memberService.login(
+    let loginInfo = await memberService.login(
       {
         "email": email,
         "password": password
       }
-    ).then(response => {
-      // Get User Data
-      getUserData(dispatch);
-      // Send Login data to Redux
-      return resolve(dispatch({
-        type: 'USER_LOGIN',
-        data: {
-          uid: '1',
-          email: 'doannx@gmail.com',
-          emailVerified: 'true'
-        },
-      }));
-    });
+    );
+    // Set token to asyncStorage
+    await AsyncStorage.setItem("authToken", loginInfo.data.id);
+    // Get User Data
+    let userData = await memberService.getUserData(loginInfo.data.userId);
+    return resolve(dispatch({
+      type: 'USER_LOGIN',
+      data: userData
+    }));
   });
 }
 

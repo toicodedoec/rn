@@ -7,6 +7,9 @@ export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case 'USER_LOGIN': {
       if (action.data) {
+        // console.log(action.data.email);
+        // console.log(action.data.uid);
+        // console.log(action.data.firstName);
         return {
           ...state,
           loading: false,
