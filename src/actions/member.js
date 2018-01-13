@@ -73,7 +73,6 @@ export function login(formData) {
     if (!email) return reject({ message: ErrorMessages.missingEmail });
     if (!password) return reject({ message: ErrorMessages.missingPassword });
 
-    await statusMessage(dispatch, 'loading', false);
     // Call API /appUsers/login
     let loginInfo = await memberService.login(
       {
@@ -85,6 +84,7 @@ export function login(formData) {
     await AsyncStorage.setItem("authToken", loginInfo.data.id);
     // Get User Data
     let userData = await memberService.getUserData(loginInfo.data.userId);
+    await statusMessage(dispatch, 'loading', false);
     return resolve(dispatch({
       type: 'USER_LOGIN',
       data: userData
