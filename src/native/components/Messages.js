@@ -12,7 +12,7 @@ const Messages = ({ message, type }) => (
       paddingHorizontal: 5,
     }}
   >
-    <Text style={{ color: '#fff', textAlign: 'center' }}>{message}</Text>
+    <Text style={{ color: '#fff', textAlign: 'center', fontSize: 14 }}>{message}</Text>
   </View>
 );
 

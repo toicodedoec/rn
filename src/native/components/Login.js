@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Content, Form, Item, Label, Input, Text, Button } from 'native-base';
+import { Container, Content, Form, Item, Label, Input, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { Image, StyleSheet } from 'react-native';
 import Loading from './Loading';
 import Messages from './Messages';
-import Header from './Header';
+import Button from './Button';
 import Spacer from './Spacer';
+import Styles from '../../../native-base-theme/variables/custom';
 
 class Login extends React.Component {
   static propTypes = {
@@ -23,10 +25,11 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      email: 'superman@krypton.com',
-      password: 'superpower'
-    });
+    this.props.resetStatus();
+    // this.setState({
+    //   email: 'superman@krypton.com',
+    //   password: 'superpower'
+    // });
   }
 
   constructor(props) {
@@ -35,9 +38,6 @@ class Login extends React.Component {
       email: (props.member && props.member.email) ? props.member.email : '',
       password: '',
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange = (name, val) => {
@@ -48,9 +48,10 @@ class Login extends React.Component {
   }
 
   handleSubmit = () => {
-    this.props.onFormSubmit(this.state)
-      .then(() => Actions.tabbar())
-      .catch(e => console.log(`Error: ${e}`));
+    Actions.tabbar()
+    // this.props.onFormSubmit(this.state)
+    //   .then(() => Actions.tabbar())
+    //   .catch(e => console.log(`Error: ${e}`));
   }
 
   render() {
@@ -60,40 +61,56 @@ class Login extends React.Component {
     if (loading) return <Loading />;
 
     return (
-      <Container>
-        <Content padder>
-          <Header
-            title="Welcome back"
-            content="Please use your email and password to login."
+      <Container style={Styles.mainBackground}>
+        <Content padder style={{ paddingLeft: 20, paddingRight: 20 }}>
+          <Image
+            source={require('./../../images/me2-logo-white.png')}
+            style={Styles.mainLogo}
           />
-
-          {error && <Messages message={error} />}
-
+          <Spacer size={30} />
+          <Text style={Styles.screenTitle}>Log in to continue</Text>
+          <Spacer size={40} />
           <Form>
-            <Item stackedLabel>
-              <Label>Email</Label>
+            <Item stackedLabel style={Styles.inputContainer}>
+              <Label style={Styles.inputTitle}>Email address</Label>
               <Input
                 autoCapitalize="none"
+                placeholder='Email address'
                 value={this.state.email}
                 keyboardType="email-address"
                 onChangeText={v => this.handleChange('email', v)}
+                style={Styles.input}
+                placeholderTextColor="#ddd"
               />
             </Item>
-            <Item stackedLabel>
-              <Label>Password</Label>
+            <Item stackedLabel style={Styles.inputContainer}>
+              <Label style={Styles.inputTitle}>Password</Label>
               <Input
+                placeholder='Password'
                 secureTextEntry
                 onChangeText={v => this.handleChange('password', v)}
+                style={Styles.input}
+                placeholderTextColor="#ddd"
               />
             </Item>
+            <Spacer size={10} />
+            {error && <Messages message={error} />}
+            <Spacer size={10} />
 
-            <Spacer size={20} />
-
-            <Button block onPress={this.handleSubmit}>
-              <Text>Login</Text>
-            </Button>
+            <Button onPress={this.handleSubmit} content="Login" />
           </Form>
         </Content>
+        <Text
+          style={{
+            marginBottom: 20,
+            color: '#35d1a3',
+            height: 40,
+            textAlign: 'center'
+          }}
+          onPress={() => {
+            Actions.forgotPassword()
+          }}
+        >Forgot your password</Text>
       </Container>
     );
   }

@@ -112,14 +112,15 @@ export default {
   cardDefaultBg: '#fff',
 
   // Color
-  brandPrimary: '#473BE7',
+  brandPrimary: '#35d1a3',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
   brandWarning: '#f0ad4e',
   brandSidebar: '#252932',
-  brandDark: '#000',
+  brandDark: '#2a2f38',
   brandLight: '#f4f4f4',
+
 
   // Font
   fontFamily: platform === 'ios' ? 'System' : 'Roboto',
@@ -137,7 +138,7 @@ export default {
 
   // Footer
   footerHeight: isIphoneX ? 89 : 55,
-  footerDefaultBg: '#2874F0',
+  footerDefaultBg: '#2a2f38',
   footerPaddingBottom: isIphoneX ? 34 : 0,
 
   // FooterTab
@@ -158,10 +159,10 @@ export default {
 
   // Header
   toolbarBtnColor: '#fff',
-  toolbarDefaultBg: '#2874F0',
+  toolbarDefaultBg: '#2a2f38',
   toolbarHeight: platform === 'ios' ? (isIphoneX ? 88 : 64) : 56,
   toolbarIconSize: platform === 'ios' ? 20 : 22,
-  toolbarSearchIconSize: platform === 'ios' ? 20 : 23,
+  toolbarSearchIconSize: platform === 'ios' ? 18 : 22,
   toolbarInputColor: platform === 'ios' ? '#CECDD2' : '#fff',
   searchBarHeight: platform === 'ios' ? 30 : 40,
   searchBarInputHeight: platform === 'ios' ? 30 : 50,
@@ -179,7 +180,7 @@ export default {
   iconFamily: 'Ionicons',
   iconFontSize: platform === 'ios' ? 30 : 28,
   iconMargin: 7,
-  iconHeaderSize: platform === 'ios' ? 33 : 24,
+  iconHeaderSize: platform === 'ios' ? 18 : 20,
 
   // InputGroup
   inputFontSize: 17,
@@ -254,7 +255,7 @@ export default {
   tabTextColor: '#222222',
 
   // Text
-  textColor: '#555',
+  textColor: '#2b2f37',
   inverseTextColor: '#fff',
   noteFontSize: 14,
 

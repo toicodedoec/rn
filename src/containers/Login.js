@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { login } from '../actions/member';
+import { login, resetStatus } from '../actions/member';
 
 const Login = ({
   Layout,
@@ -12,6 +12,7 @@ const Login = ({
   infoMessage,
   errorMessage,
   successMessage,
+  resetStatus
 }) => (
   <Layout
     member={member}
@@ -20,6 +21,7 @@ const Login = ({
     error={errorMessage}
     success={successMessage}
     onFormSubmit={onFormSubmit}
+    resetStatus={resetStatus}
   />
 );
 
@@ -49,6 +51,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   onFormSubmit: login,
+  resetStatus: resetStatus
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

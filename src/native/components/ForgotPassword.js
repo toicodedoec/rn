@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Content, Text, Form, Item, Label, Input, Button } from 'native-base';
+import { Container, Content, Text, Form, Item, Label, Input, Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { StyleSheet } from 'react-native';
 import Loading from './Loading';
 import Messages from './Messages';
-import Header from './Header';
+import Button from './Button';
 import Spacer from './Spacer';
+import Styles from '../../../native-base-theme/variables/custom';
 
 class ForgotPassword extends React.Component {
   static propTypes = {
@@ -25,11 +27,8 @@ class ForgotPassword extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: (props.member && props.member.email) ? props.member.email : '',
+      email: '',
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange = (name, val) => {
@@ -40,9 +39,11 @@ class ForgotPassword extends React.Component {
   }
 
   handleSubmit = () => {
-    this.props.onFormSubmit(this.state)
-      .then(() => Actions.login())
-      .catch(e => console.log(`Error: ${e}`));
+    if (this.state.email) {
+      this.props.onFormSubmit(this.state)
+        .then((response) => console.log(response.json()))
+        .catch(e => console.log(`Error: ${e}`));
+    }
   }
 
   render() {
@@ -52,29 +53,28 @@ class ForgotPassword extends React.Component {
     if (loading) return <Loading />;
 
     return (
-      <Container>
-        <Content padder>
-          <Header
-            title="Reset your Password"
-            content="No stress, no stress. We'll get you back into your account."
-          />
-
-          {error && <Messages message={error} />}
-
+      <Container style={Styles.mainBackground}>
+        <Content padder style={{ paddingLeft: 20, paddingRight: 20 }}>
+          <Spacer size={100} />
+          <Text style={Styles.screenTitle}>Reset your password</Text>
+          <Spacer size={40} />
           <Form>
-            <Item stackedLabel>
-              <Label>Email</Label>
+            <Item stackedLabel style={Styles.inputContainer}>
+              <Label style={Styles.inputTitle}>Email</Label>
               <Input
                 autoCapitalize="none"
+                placeholder='Email address'
                 value={this.state.email}
                 keyboardType="email-address"
                 onChangeText={v => this.handleChange('email', v)}
+                style={Styles.input}
+                placeholderTextColor="#ddd"
               />
             </Item>
-
-            <Spacer size={20} />
-
-            <Button block onPress={this.handleSubmit}><Text>Reset Password</Text></Button>
+            <Spacer size={10} />
+            {error && <Messages message={error} />}
+            <Spacer size={10} />
+            <Button onPress={this.handleSubmit} content="Reset Password" />
           </Form>
         </Content>
       </Container>

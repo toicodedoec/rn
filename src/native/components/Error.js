@@ -6,7 +6,7 @@ const Error = ({ title, content }) => (
   <Container>
     <Content>
       <H3>{title}</H3>
-      <Text>{content}</Text>
+      <Text style={{ fontSize: 12 }}>{content}</Text>
     </Content>
   </Container>
 );

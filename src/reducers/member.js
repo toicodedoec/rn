@@ -7,9 +7,6 @@ export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case 'USER_LOGIN': {
       if (action.data) {
-        // console.log(action.data.email);
-        // console.log(action.data.uid);
-        // console.log(action.data.firstName);
         return {
           ...state,
           loading: false,
@@ -47,7 +44,18 @@ export default function userReducer(state = initialState, action) {
     }
     case 'USER_RESET': {
       console.log('logout cmnr');
-      // Actions.login();
+      Actions.login();
+      return initialState;
+    }
+    case 'CREATE_USER_SUCCESSFULLY': {
+      if (action.data) {
+        return {
+          ...state,
+          loading: false,
+          error: null,
+          data: action.data
+        };
+      }
       return initialState;
     }
     default:

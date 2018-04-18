@@ -1,6 +1,7 @@
 import status from './status';
 import member from './member';
-import recipes from './recipes';
+import coach from './coach';
+import country from './country';
 
 const rehydrated = (state = false, action) => {
   switch (action.type) {
@@ -15,5 +16,6 @@ export default {
   rehydrated,
   status,
   member,
-  recipes,
+  coach,
+  country
 };

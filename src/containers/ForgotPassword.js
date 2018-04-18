@@ -7,12 +7,10 @@ import { resetPassword } from '../actions/member';
 const ForgotPassword = ({
   Layout,
   onFormSubmit,
-  member,
   isLoading,
   errorMessage,
 }) => (
   <Layout
-    member={member}
     loading={isLoading}
     error={errorMessage}
     onFormSubmit={onFormSubmit}
@@ -21,7 +19,6 @@ const ForgotPassword = ({
 
 ForgotPassword.propTypes = {
   Layout: PropTypes.func.isRequired,
-  member: PropTypes.shape({}).isRequired,
   onFormSubmit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string,
@@ -32,7 +29,6 @@ ForgotPassword.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  member: state.member || {},
   isLoading: state.status.loading || false,
   infoMessage: state.status.info || null,
   errorMessage: state.status.error || null,

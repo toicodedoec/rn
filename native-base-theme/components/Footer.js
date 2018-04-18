@@ -83,7 +83,7 @@ export default (variables = variable) => {
     flexDirection: 'row',
     justifyContent: 'center',
     borderTopWidth: platform === 'ios' && platformStyle !== 'material'
-      ? variables.borderWidth
+      ? 0
       : undefined,
     borderColor: platform === 'ios' && platformStyle !== 'material'
       ? '#cbcbcb'

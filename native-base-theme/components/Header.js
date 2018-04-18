@@ -9,7 +9,7 @@ export default (variables = variable) => {
     '.span': {
       height: 128,
       'NativeBase.Left': {
-        alignSelf: 'flex-start',
+        alignSelf: 'flex-end'
       },
       'NativeBase.Body': {
         alignSelf: 'flex-end',
@@ -27,6 +27,7 @@ export default (variables = variable) => {
           fontSize: variables.titleFontSize - 2,
           fontFamily: variables.titleFontfamily,
           textAlign: 'center',
+          fontWeight: 'bold'
         },
         'NativeBase.Subtitle': {
           fontSize: variables.subTitleFontSize,
@@ -156,14 +157,14 @@ export default (variables = variable) => {
           'NativeBase.Icon': {
             color: variables.toolbarBtnColor,
             fontSize: variables.iconHeaderSize,
-            marginTop: 2,
+            marginTop: 5,
             marginRight: 2,
             marginLeft: 2,
           },
           'NativeBase.IconNB': {
             color: variables.toolbarBtnColor,
             fontSize: variables.iconHeaderSize,
-            marginTop: 2,
+            marginTop: 5,
             marginRight: 2,
             marginLeft: 2,
           },
@@ -190,7 +191,7 @@ export default (variables = variable) => {
         paddingHorizontal: variables.buttonPadding,
       },
       flex: platform === 'ios' && platformStyle !== 'material' ? 1 : 0.5,
-      alignSelf: 'center',
+      alignSelf: 'flex-end',
       alignItems: 'flex-start',
     },
     'NativeBase.Body': {
@@ -296,8 +297,7 @@ export default (variables = variable) => {
     paddingHorizontal: 10,
     justifyContent: 'center',
     paddingTop: platform === 'ios' ? (variables.isIphoneX ? 39 : 15) : 0,
-    borderBottomWidth: platform === 'ios' ? 1 / PixelRatio.getPixelSizeForLayoutSize(1) : 0,
-    borderBottomColor: variables.toolbarDefaultBorder,
+    borderBottomWidth: 0,
     height: variables.toolbarHeight,
     elevation: 3,
     shadowColor: platformStyle === 'material' ? '#000' : undefined,
