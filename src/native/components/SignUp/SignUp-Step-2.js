@@ -28,8 +28,8 @@ class SignUpStep2 extends React.Component {
       lastName: '',
       email: '',
       password: '',
-      country: 'AUS',
-      postalCode: '',
+      country: '',
+      timezone: '',
       errorInputs: {
         firstName: false,
         lastName: false,
@@ -37,7 +37,8 @@ class SignUpStep2 extends React.Component {
         emailInvalid: false,
         password: false,
         passwordLength: false,
-        postalCode: false
+        country: false,
+        timezone: false
       }
     };
   }
@@ -64,7 +65,7 @@ class SignUpStep2 extends React.Component {
       country: this.state.country,
       coach_id: this.props.coach.id,
       confirm_success_url: '/',
-      // timezone: '',
+      timezone: this.state.timezone,
       type: 'Client'
     };
 
@@ -76,6 +77,11 @@ class SignUpStep2 extends React.Component {
     }
   }
 
+  onSelectCountry = (val) => {
+    this.setState({ country: val });
+    this.props.getTimezone(val);
+  }
+
   validateInputFields = () => {
     let errors = {
       firstName: false,
@@ -84,7 +90,8 @@ class SignUpStep2 extends React.Component {
       emailInvalid: false,
       password: false,
       passwordLength: false,
-      postalCode: false
+      country: false,
+      timezone: false
     };
     const emailRegEx = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 
@@ -106,7 +113,7 @@ class SignUpStep2 extends React.Component {
   }
 
   render() {
-    const { loading, error, countries } = this.props;
+    const { loading, error, countries, timezone } = this.props;
 
     // Loading
     if (loading) return <Loading />;
@@ -166,25 +173,37 @@ class SignUpStep2 extends React.Component {
 
             <Item stackedLabel style={customStyles.inputContainer}>
               <Label style={customStyles.inputTitle}>Location</Label>
-              <View style={{ width: '100%', flexDirection: 'row' }}>
+              <View style={{ width: '100%' }}>
                 <Picker
                   mode="dropdown"
                   iosHeader="Select country"
                   iosIcon={<Icon name="ios-arrow-down-outline" />}
-                  style={{ width: 150, backgroundColor: '#fff', marginTop: 10, height: 50 }}
+                  style={{ width: '100%', backgroundColor: '#fff', marginTop: 10, height: 50 }}
                   selectedValue={this.state.country}
-                  onValueChange={(value) => this.setState({ country: value })}
+                  onValueChange={(value) => this.onSelectCountry(value)}
                 >
-                  {countries.map(c => <Item label={c[0]} value={c[0]} key={c[1]} />)}
+                  {countries.map(c => <Item label={c[2]} value={c[0]} key={c[1]} />)}
 
                 </Picker>
-                <Input
-                  onChangeText={v => this.handleChange('postalCode', v)}
-                  style={[customStyles.input, { flex: 1 }]}
-                  value={this.state.postalCode}
-                />
               </View>
-              <Text style={[customStyles.inputErrorMsg, { display: this.state.errorInputs.postalCode ? 'flex' : 'none' }]}>Please enter this field</Text>
+              <Text style={[customStyles.inputErrorMsg, { display: this.state.errorInputs.country ? 'flex' : 'none' }]}>Please enter this field</Text>
+            </Item>
+
+            <Item stackedLabel style={customStyles.inputContainer}>
+              <Label style={customStyles.inputTitle}>Timezone</Label>
+              <View style={{ width: '100%' }}>
+                <Picker
+                  mode="dropdown"
+                  iosHeader="Select timezone"
+                  iosIcon={<Icon name="ios-arrow-down-outline" />}
+                  style={{ width: '100%', backgroundColor: '#fff', marginTop: 10, height: 50 }}
+                  selectedValue={this.state.timezone}
+                  onValueChange={(value) => this.setState({ timezone: value })}
+                >
+                  {timezone.map(t => <Item label={t[1]} value={t[0]} key={t[1]} />)}
+                </Picker>
+              </View>
+              <Text style={[customStyles.inputErrorMsg, { display: this.state.errorInputs.timezone ? 'flex' : 'none' }]}>Please enter this field</Text>
             </Item>
           </Form>
 

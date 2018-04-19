@@ -26,6 +26,10 @@ exports.getCountries = () => {
   return axiosInstance.get(`/countries`)
 }
 
+exports.getTimezone = (countryId) => {
+  return axiosInstance.get(`/countries/${countryId}/get_timezone`)
+}
+
 exports.createUser = (formData) => {
   return axiosInstance.post(`/auth`, formData)
 }

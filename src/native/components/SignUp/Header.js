@@ -9,9 +9,9 @@ const Headers = ({ stepNo, content }) => (
     <StyleProvider style={getTheme(commonColor)}>
         <Header hasSubtitle={true} >
             <Left>
-                <Button transparent onPress={() => Actions.pop()}>
+                {/* <Button transparent onPress={() => Actions.pop()}>
                     <Icon name='arrow-back' />
-                </Button>
+                </Button> */}
             </Left>
             <Body style={{ minWidth: 200 }}>
                 <Subtitle>Step {stepNo}/4</Subtitle>

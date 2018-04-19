@@ -15,6 +15,16 @@ export default function countryReducer(state = initialState, action) {
       }
       return initialState;
     }
+    case 'GET_TIMEZONE_SUCCESSFULLY': {
+      if (action.data) {
+        return {
+          ...state,
+          loading: false,
+          timezone: action.data
+        };
+      }
+      return initialState;
+    }
     default:
       return state;
   }
